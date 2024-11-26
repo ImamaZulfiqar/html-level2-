@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.calculator {
+  width: 200px;
+  height: 250px;
+  background-color: #333;
+  border-radius: 5px;
+  margin: 50px auto;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.display {
+  width: 100%;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 20px;
+  text-align: right;
+}
+
+.button {
+  width: 45px;
+  height: 40px;
+  background-color: #eee;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #ddd;
+}
+
+.button.operator {
+  background-color: #FFA500;
+}
+
+.button.equal {
+  width: 95px;
+  background-color: #FFA500;
+}
+</style>
+</head>
+<body>
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button class="button" onclick="appendDigit('7')">7</button>
+    <button class="button" onclick="appendDigit('8')">8</button>
+    <button class="button" onclick="appendDigit('9')">9</button>
+    <button class="button operator" onclick="appendOperator('/')">/</button>
+    <button class="button" onclick="appendDigit('4')">4</button>
+    <button class="button" onclick="appendDigit('5')">5</button>
+    <button class="button" onclick="appendDigit('6')">6</button>
+    <button class="button operator" onclick="appendOperator('x')">x</button>
+    <button class="button" onclick="appendDigit('1')">1</button>
+    <button class="button" onclick="appendDigit('2')">2</button>
+    <button class="button" onclick="appendDigit('3')">3</button>
+    <button class="button operator" onclick="appendOperator('-')">-</button>
+    <button class="button" onclick="appendDigit('0')">0</button>
+    <button class="button" onclick="appendDigit('.')">.</button>
+    <button class="button operator" onclick="appendOperator('+')">+</button>
+    <button class="button equal" onclick="calculate()">=</button>
+    <button class="button" onclick="clearDisplay()">C</button>
+  </div>
+</div>
+
+<script>
+let displayValue = '0';
+let operator = '';
+let firstNumber = '';
+let secondNumber = '';
+
+function appendDigit(digit) {
+  if (displayValue === '0') {
+    displayValue = digit;
+  } else {
+    displayValue += digit;
+  }
+  document.getElementById('display').innerHTML = displayValue;
+}
+
+function appendOperator(op) {
+  operator = op;
+  firstNumber = displayValue;
+  displayValue = '0';
+  document.getElementById('display').innerHTML = displayValue;
+}
+
+function calculate() {
+  secondNumber = displayValue;
+  let result = 0;
+  switch (operator) {
+    case '+':
+      result = parseFloat(firstNumber) + parseFloat(secondNumber);
+      break;
+    case '-':
+      result = parseFloat(firstNumber) - parseFloat(secondNumber);
+      break;
+    case 'x':
+      result = parseFloat(firstNumber) * parseFloat(secondNumber);
+      break;
+    case '/':
+      result = parseFloat(firstNumber) / parseFloat(secondNumber);
+      break;
+  }
+  displayValue = result.toString();
+  document.getElementById('display').innerHTML = displayValue;
+}
+
+function clearDisplay() {
+  displayValue = '0';
+  operator = '';
+  firstNumber = '';
+  secondNumber = '';
+  document.getElementById('display').innerHTML = displayValue;
+}
+</script>
+</body>
+</html>
